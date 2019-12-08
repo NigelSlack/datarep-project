@@ -1,0 +1,592 @@
+<html>
+  <head>
+    <title>DataRep Project Viewer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 id="head1" align="center">Cds and Dvds</h1>
+    <h2 id="head2a" style="display: none" align="center">Cds</h2>
+    <h2 id="head2b" style="display: none" align="center">Dvds</h2>
+    <div><button id="showCdsButton" onclick="showCds()" style="width:80px;height:50px">Cds</button></div>
+    <div><button id="showDvdsButton" onclick="showDvds()" style="width:80px;height:50px">Dvds</button></div> 
+    <div><button id="showCreateButton1" onclick="showCreate1()" style="display: none;width:70px">Create</button></div>
+    <div><button id="showCreateButton2" onclick="showCreate2()" style="display: none;width:70px">Create</button></div>
+
+    <div><button id="showReturnButton" onclick="showReturn()" style="display: none;width:70px">Return</button></div>
+    <div>
+      <table class="table" id="cdsTable" style="display: none">
+        <tr>
+          <th>id </th>
+          <th>album</th>
+          <th>artist</th>
+          <th>price</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>       
+      </table>
+    </div>
+    <div>
+        <table class="table" id="dvdsTable" style="display: none">
+          <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>director</th>
+            <th>price</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>       
+        </table>
+      </div>
+
+    <div id='createUpdateForm1' style="display: none">
+      <h2><span id="createLabel1">Create a</span> <span id="updateLabel1">update</span> Cd</h2>
+      <input type="hidden" name="id"/>
+      album<input type="text" name="album"/> <br/> 
+      artist<input type="text" name="artist"/> <br/>
+      price<input type="number" name="price"/> <br/>
+      <span><button id="doCreateButton1" onclick="doCreate1()">Create</button></span>
+      <span><button id="doUpdateButton1" onclick="doUpdate1()">Update</button></span>     
+    </div>
+
+    <div id='createUpdateForm2' style="display: none">
+        <h2><span id="createLabel2">Create a</span> <span id="updateLabel2">update</span> Dvd</h2>
+        <input type="hidden" name="id"/>
+        title<input type="text" name="title"/> <br/> 
+        director<input type="text" name="director"/> <br/>
+        price<input type="number" name="price"/> <br/>
+        <span><button id="doCreateButton2" onclick="doCreate2()">Create</button></span>
+        <span><button id="doUpdateButton2" onclick="doUpdate2()">Update</button></span>     
+      </div>
+
+  </body>
+  <script>
+    
+    function showReturn(){
+      clearForm1()
+      clearForm2()
+      document.getElementById('head1').style.display="block"
+      document.getElementById('head2a').style.display="none"
+      document.getElementById('head2b').style.display="none"
+      document.getElementById('showCdsButton').style.display="inline-block"
+      document.getElementById('showDvdsButton').style.display="inline-block"
+      document.getElementById('showCreateButton1').style.display="none"
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="none"      
+      document.getElementById('cdsTable').style.display="none"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="none"
+      document.getElementById('createLabel1').style.display="none"
+      document.getElementById('updateLabel1').style.display="none"
+      document.getElementById('createUpdateForm2').style.display="none"
+      document.getElementById('createLabel2').style.display="none"
+      document.getElementById('updateLabel2').style.display="none"
+
+      document.getElementById('doCreateButton1').style.display="none"
+      document.getElementById('doUpdateButton1').style.display="none"
+      document.getElementById('doCreateButton2').style.display="none"
+      document.getElementById('doUpdateButton2').style.display="none"
+    }
+    
+    
+    function showCds(){
+      document.getElementById('head1').style.display="none"
+      document.getElementById('head2a').style.display="block"
+      document.getElementById('head2b').style.display="none"
+
+      document.getElementById('showCdsButton').style.display="none"
+      document.getElementById('showDvdsButton').style.display="none"
+      document.getElementById('showCreateButton1').style.display="none"
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="none"  
+      document.getElementById('cdsTable').style.display="none"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="none"
+      document.getElementById('createLabel1').style.display="none"
+      document.getElementById('updateLabel1').style.display="none"
+      document.getElementById('createUpdateForm2').style.display="none"
+      document.getElementById('createLabel2').style.display="none"
+      document.getElementById('updateLabel2').style.display="none"
+
+      document.getElementById('doCreateButton1').style.display="none"
+      document.getElementById('doUpdateButton1').style.display="none"
+      document.getElementById('doCreateButton2').style.display="none"
+      document.getElementById('doUpdateButton2').style.display="none"
+      showViewAll1()
+    }
+    
+    function showDvds(){
+      document.getElementById('head1').style.display="none"
+      document.getElementById('head2a').style.display="none"
+      document.getElementById('head2b').style.display="block"
+
+      document.getElementById('showCdsButton').style.display="none"
+      document.getElementById('showDvdsButton').style.display="none"
+      document.getElementById('showCreateButton1').style.display="none"
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="none"  
+      document.getElementById('cdsTable').style.display="none"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="none"
+      document.getElementById('createLabel1').style.display="none"
+      document.getElementById('updateLabel1').style.display="none"
+      document.getElementById('createUpdateForm2').style.display="none"
+      document.getElementById('createLabel2').style.display="none"
+      document.getElementById('updateLabel2').style.display="none"
+      document.getElementById('doCreateButton1').style.display="none"
+      document.getElementById('doUpdateButton1').style.display="none"  
+      document.getElementById('doCreateButton2').style.display="none"
+      document.getElementById('doUpdateButton2').style.display="none"      
+      showViewAll2()
+    }
+
+    function showCreate1(){
+      document.getElementById('showCdsButton').style.display="none"
+      document.getElementById('showDvdsButton').style.display="none"
+      document.getElementById('showCreateButton1').style.display="none"
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="none"  
+      document.getElementById('cdsTable').style.display="none"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="block"
+      document.getElementById('createLabel1').style.display="inline"
+      document.getElementById('updateLabel1').style.display="none"
+      document.getElementById('createUpdateForm2').style.display="none"
+      document.getElementById('createLabel2').style.display="none"
+      document.getElementById('updateLabel2').style.display="none"
+
+      document.getElementById('doCreateButton1').style.display="block"
+      document.getElementById('doUpdateButton1').style.display="none"
+      document.getElementById('doCreateButton2').style.display="none"
+      document.getElementById('doUpdateButton2').style.display="none"
+      }
+
+
+    function showCreate2(){
+      document.getElementById('showCdsButton').style.display="none"
+      document.getElementById('showDvdsButton').style.display="none"
+      document.getElementById('showCreateButton1').style.display="none"
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="none"  
+      document.getElementById('cdsTable').style.display="none"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="none"
+      document.getElementById('createLabel1').style.display="none"
+      document.getElementById('updateLabel1').style.display="none"
+      document.getElementById('createUpdateForm2').style.display="block"
+      document.getElementById('createLabel2').style.display="inline"
+      document.getElementById('updateLabel2').style.display="none"
+
+      document.getElementById('doCreateButton1').style.display="none"
+      document.getElementById('doUpdateButton1').style.display="none"
+      document.getElementById('doCreateButton2').style.display="block"
+      document.getElementById('doUpdateButton2').style.display="none"
+      }
+
+
+    function showViewAll1(){
+      document.getElementById('showCdsButton').style.display="none"
+      document.getElementById('showDvdsButton').style.display="none"
+      document.getElementById('showCreateButton1').style.display="block" 
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="block"  
+      document.getElementById('cdsTable').style.display="block"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="none"
+      document.getElementById('createUpdateForm2').style.display="none"
+
+      }
+      
+    function showViewAll2(){
+        document.getElementById('showCdsButton').style.display="none"
+        document.getElementById('showDvdsButton').style.display="none"
+        document.getElementById('showCreateButton1').style.display="none" 
+        document.getElementById('showCreateButton2').style.display="block"
+
+        document.getElementById('showReturnButton').style.display="block"  
+        document.getElementById('cdsTable').style.display="none"
+        document.getElementById('dvdsTable').style.display="block"
+  
+        document.getElementById('createUpdateForm1').style.display="none"
+        document.getElementById('createUpdateForm2').style.display="none"
+  
+        }
+    
+    function showUpdate1(buttonElement){
+      document.getElementById('showCdsButton').style.display="none"
+      document.getElementById('showDvdsButton').style.display="none"        
+      document.getElementById('showCreateButton1').style.display="none"
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="none"  
+      document.getElementById('cdsTable').style.display="none"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="block"
+      document.getElementById('createLabel1').style.display="none"
+      document.getElementById('updateLabel1').style.display="inline"
+      document.getElementById('createUpdateForm2').style.display="none"
+      document.getElementById('createLabel2').style.display="none"
+      document.getElementById('updateLabel2').style.display="none"
+
+      document.getElementById('doCreateButton1').style.display="none"
+      document.getElementById('doUpdateButton1').style.display="block"
+      document.getElementById('doCreateButton2').style.display="none"
+      document.getElementById('doUpdateButton2').style.display="none"
+
+      var rowElement = buttonElement.closest('tr')
+      var cd = getCdFromRow(rowElement)
+      populateFormWithCd(cd)
+    }
+
+    function showUpdate2(buttonElement){
+      document.getElementById('showCdsButton').style.display="none"
+      document.getElementById('showDvdsButton').style.display="none"        
+      document.getElementById('showCreateButton1').style.display="none"
+      document.getElementById('showCreateButton2').style.display="none"
+
+      document.getElementById('showReturnButton').style.display="none"  
+      document.getElementById('cdsTable').style.display="none"
+      document.getElementById('dvdsTable').style.display="none"
+
+      document.getElementById('createUpdateForm1').style.display="none"
+      document.getElementById('createLabel1').style.display="none"
+      document.getElementById('updateLabel1').style.display="none"
+      document.getElementById('createUpdateForm2').style.display="block"
+      document.getElementById('createLabel2').style.display="none"
+      document.getElementById('updateLabel2').style.display="inline"
+
+      document.getElementById('doCreateButton1').style.display="none"
+      document.getElementById('doUpdateButton1').style.display="none"
+      document.getElementById('doCreateButton2').style.display="none"
+      document.getElementById('doUpdateButton2').style.display="block"
+
+      var rowElement = buttonElement.closest('tr')
+      var dvd = getDvdFromRow(rowElement)
+      populateFormWithDvd(dvd)
+    }
+
+    
+    function doCreate1(){
+      var form = document.getElementById('createUpdateForm1')
+      var cd = {}
+      
+      cd.album = form.querySelector('input[name="album"]').value
+      cd.artist = form.querySelector('input[name="artist"]').value
+      cd.price = form.querySelector('input[name="price"]').value
+      console.log(JSON.stringify(cd))
+      createCdAjax(cd)
+    }
+
+    function doCreate2(){
+      var form = document.getElementById('createUpdateForm2')
+      var dvd = {}
+      
+      dvd.title = form.querySelector('input[name="title"]').value
+      dvd.director = form.querySelector('input[name="director"]').value
+      dvd.price = form.querySelector('input[name="price"]').value
+      console.log(JSON.stringify(dvd))
+      createDvdAjax(dvd)
+    }
+
+
+    function doUpdate1(){
+      var cd = getCdFromForm();
+      var rowElement = document.getElementById(cd.id)
+      updateCdAjax(cd)
+      setCdInRow(rowElement,cd)
+      clearForm1()
+      showViewAll1()
+    }
+    function doUpdate2(){
+      var dvd = getDvdFromForm();
+      var rowElement = document.getElementById(dvd.id)
+      updateDvdAjax(dvd)
+      setDvdInRow(rowElement,dvd)
+      clearForm2()
+      showViewAll2()
+    }
+
+    function doDelete1(r){
+      var tableElement = document.getElementById('cdsTable')
+      var rowElement = r.parentNode.parentNode;
+      var index = rowElement.rowIndex;
+      deleteCdAjax(rowElement.getAttribute("id"));
+      tableElement.deleteRow(index);
+    }
+    function doDelete2(r){
+      var tableElement = document.getElementById('dvdsTable')
+      var rowElement = r.parentNode.parentNode;
+      var index = rowElement.rowIndex;
+      deleteDvdAjax(rowElement.getAttribute("id"));
+      tableElement.deleteRow(index);
+    }
+
+
+    function addCdToTable(cd){
+      var tableElement = document.getElementById('cdsTable')
+      var rowElement = tableElement.insertRow(-1)
+      rowElement.setAttribute('id',cd.id)
+      var cell1 = rowElement.insertCell(0);
+      cell1.innerHTML = cd.id
+      var cell2 = rowElement.insertCell(1);
+      cell2.innerHTML = cd.album
+      var cell3 = rowElement.insertCell(2);
+      cell3.innerHTML = cd.artist
+      var cell4 = rowElement.insertCell(3);
+      cell4.innerHTML = cd.price
+      var cell5 = rowElement.insertCell(4);
+      cell5.innerHTML = '<button onclick="showUpdate1(this)">Update</button>'
+      var cell6 = rowElement.insertCell(5);
+      cell6.innerHTML = '<button onclick="doDelete1(this)">Delete</button>'
+    }
+    function addDvdToTable(dvd){
+      var tableElement = document.getElementById('dvdsTable')
+      var rowElement = tableElement.insertRow(-1)
+      rowElement.setAttribute('id',dvd.id)
+      var cell1 = rowElement.insertCell(0);
+      cell1.innerHTML = dvd.id
+      var cell2 = rowElement.insertCell(1);
+      cell2.innerHTML = dvd.title
+      var cell3 = rowElement.insertCell(2);
+      cell3.innerHTML = dvd.director
+      var cell4 = rowElement.insertCell(3);
+      cell4.innerHTML = dvd.price
+      var cell5 = rowElement.insertCell(4);
+      cell5.innerHTML = '<button onclick="showUpdate2(this)">Update</button>'
+      var cell6 = rowElement.insertCell(5);
+      cell6.innerHTML = '<button onclick="doDelete2(this)">Delete</button>'
+    }
+
+    function clearForm1(){
+      var form = document.getElementById('createUpdateForm1')
+      form.querySelector('input[name="album"]').value = ''
+      form.querySelector('input[name="artist"]').value = ''
+      form.querySelector('input[name="price"]').value = ''
+    }
+    function clearForm2(){
+      var form = document.getElementById('createUpdateForm2')
+      form.querySelector('input[name="title"]').value = ''
+      form.querySelector('input[name="director"]').value = ''
+      form.querySelector('input[name="price"]').value = ''
+    }
+
+    function getCdFromRow(rowElement){
+      var cd = {}
+      cd.id = rowElement.getAttribute('id')
+      cd.album = rowElement.cells[1].firstChild.textContent
+      cd.artist = rowElement.cells[2].firstChild.textContent
+      cd.price = parseInt(rowElement.cells[3].firstChild.textContent,10)
+      return cd
+    }
+    function getDvdFromRow(rowElement){
+      var dvd = {}
+      dvd.id = rowElement.getAttribute('id')
+      dvd.title = rowElement.cells[1].firstChild.textContent
+      dvd.director = rowElement.cells[2].firstChild.textContent
+      dvd.price = parseInt(rowElement.cells[3].firstChild.textContent,10)
+      return dvd
+    }
+
+    function setCdInRow(rowElement, cd){
+      rowElement.cells[0].firstChild.textContent = cd.id
+      rowElement.cells[1].firstChild.textContent = cd.album
+      rowElement.cells[2].firstChild.textContent = cd.artist
+      rowElement.cells[3].firstChild.textContent = cd.price
+    }
+    function setDvdInRow(rowElement, dvd){
+      rowElement.cells[0].firstChild.textContent = dvd.id
+      rowElement.cells[1].firstChild.textContent = dvd.title
+      rowElement.cells[2].firstChild.textContent = dvd.director
+      rowElement.cells[3].firstChild.textContent = dvd.price
+    }
+
+    function populateFormWithCd(cd){
+      var form = document.getElementById('createUpdateForm1')
+      form.querySelector('input[name="id"]').disabled = true
+      form.querySelector('input[name="id"]').value = cd.id
+      form.querySelector('input[name="album"]').value = cd.album
+      form.querySelector('input[name="artist"]').value = cd.artist
+      form.querySelector('input[name="price"]').value = cd.price
+      return cd
+    }
+    function populateFormWithDvd(dvd){
+      var form = document.getElementById('createUpdateForm2')
+      form.querySelector('input[name="id"]').disabled = true
+      form.querySelector('input[name="id"]').value = dvd.id
+      form.querySelector('input[name="title"]').value = dvd.title
+      form.querySelector('input[name="director"]').value = dvd.director
+      form.querySelector('input[name="price"]').value = dvd.price
+      return dvd
+    }
+
+    function getCdFromForm(){
+      var form = document.getElementById('createUpdateForm1')
+      var cd = {}
+      cd.id = form.querySelector('input[name="id"]').value
+      cd.album = form.querySelector('input[name="album"]').value
+      cd.artist = form.querySelector('input[name="artist"]').value
+      cd.price = form.querySelector('input[name="price"]').value
+      return cd
+    }
+    function getDvdFromForm(){
+      var form = document.getElementById('createUpdateForm2')
+      var dvd = {}
+      dvd.id = form.querySelector('input[name="id"]').value
+      dvd.title = form.querySelector('input[name="title"]').value
+      dvd.director = form.querySelector('input[name="director"]').value
+      dvd.price = form.querySelector('input[name="price"]').value
+      return dvd
+    }
+    
+    function getAllAjax1(){
+       $.ajax({
+         "url": host+"/project/cd",
+         "method":"GET",
+         "data":"",
+         "dataType": "JSON",
+         
+         "success":function(result){
+           for (cd of result){
+               addCdToTable(cd);
+           }
+         },
+         
+         "error":function(xhr,status,error,result){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+
+    function getAllAjax2(){
+       $.ajax({
+         "url": host+"/project/dvd",
+         "method":"GET",
+         "data":"",
+         "dataType": "JSON",
+         
+         "success":function(result){
+           for (dvd of result){
+               addDvdToTable(dvd);
+           }
+         },
+         "error":function(xhr,status,error){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+
+    function updateCdAjax(cd){
+       $.ajax({
+         "url": host+"/project/cd/"+encodeURI(cd.id),
+         "method":"PUT",
+         "data":JSON.stringify(cd),
+         "dataType": "JSON",
+         contentType: "application/json; charset=utf-8",
+         "success":function(result){
+         },
+         "error":function(xhr,status,error){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+
+     function updateDvdAjax(dvd){
+       $.ajax({
+         "url": host+"/project/dvd/"+encodeURI(dvd.id),
+         "method":"PUT",
+         "data":JSON.stringify(dvd),
+         "dataType": "JSON",
+         contentType: "application/json; charset=utf-8",
+         "success":function(result){
+         },
+         "error":function(xhr,status,error){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+
+     function createCdAjax(cd){
+       $.ajax({
+         "url": host+"/project/cd",
+         "method":"POST",
+         "data":JSON.stringify(cd),
+         "dataType": "JSON",
+         contentType: "application/json; charset=utf-8",
+         "success":function(result){
+           cd.id = result.id
+           addCdToTable(cd)
+           clearForm1()
+           showViewAll1()
+         },
+         "error":function(xhr,status,error){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+
+     function createDvdAjax(dvd){
+       $.ajax({
+         "url": host+"/project/dvd",
+         "method":"POST",
+         "data":JSON.stringify(dvd),
+         "dataType": "JSON",
+         contentType: "application/json; charset=utf-8",
+         "success":function(result){
+           dvd.id = result.id
+           addDvdToTable(dvd)
+           clearForm2()
+           showViewAll2()
+         },
+         "error":function(xhr,status,error){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+
+     function deleteCdAjax(id){
+       $.ajax({
+         "url": host="/project/cd/"+encodeURI(id),
+         "method":"DELETE",
+         "data":"",
+         "dataType": "JSON",
+         contentType: "application/json; charset=utf-8",
+         "success":function(result){
+         },
+         "error":function(xhr,status,error){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+
+     function deleteDvdAjax(id){
+       $.ajax({
+         "url": host+"/project/dvd/"+encodeURI(id),
+         "method":"DELETE",
+         "data":"",
+         "dataType": "JSON",
+         contentType: "application/json; charset=utf-8",
+         "success":function(result){
+         },
+         "error":function(xhr,status,error){
+           console.log("error: "+status+" msg:"+error);
+           }   
+       });
+     }
+     host=window.location.origin
+     getAllAjax1();
+     getAllAjax2();
+  </script>
+</html>
