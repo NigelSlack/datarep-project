@@ -1,24 +1,41 @@
+# HDip Data Analytics - Data Representation project 2019 
+# Author Nigel Slack
+
+# Use Flask to get CRUD operation requests from web front end (DRproject.html) to 
+# perform sql operations on two tables, 'cds' and 'dvds'. Pass the commands to 
+# 'projectDAO' to execute them.
+ 
+# Install Flask first if necessary
 from flask import Flask, jsonify, request, abort
+
+# 'projectDAO' contains the SQL commands
 from projectDAO import projectDAO
+
+# Use logging to write requests to 'log.log'
 import logging
 
+# Define teh Flask app
 app = Flask(__name__,static_url_path='',static_folder='.')
 
+# Start logging to 'log.log'
 # ref https://www.scalyr.com/blog/getting-started-quickly-with-flask-logging/
 logging.basicConfig(filename='log.log',level=logging.DEBUG,format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
+# Get a list of all cds
 #curl "http://127.0.0.1:5000/project/cd"
 @app.route('/project/cd')
 def getAllCd():
     results=projectDAO.getAllCd()
     return jsonify(results)
 
+# Get a list of all dvds
 #curl "http://127.0.0.1:5000/project/dvd"
 @app.route('/project/dvd')
 def getAllDvd():
     results=projectDAO.getAllDvd()
     return jsonify(results)
 
+# Get one cd record, using the input id
 #curl "http://127.0.0.1:5000/project/cd/1"
 @app.route('/project/cd/<int:id>')
 def findByIdCd(id):
@@ -26,6 +43,7 @@ def findByIdCd(id):
     foundCd=projectDAO.findByIDCd(id)
     return jsonify(foundCd)    
 
+# Get one dvd record, using the input id
 #curl "http://127.0.0.1:5000/project/dvd/1"
 @app.route('/project/dvd/<int:id>')
 def findByIdDvd(id):
@@ -33,6 +51,8 @@ def findByIdDvd(id):
     foundDvd=projectDAO.findByIDDvd(id)
     return jsonify(foundDvd)    
 
+# Create a new cd record using the inputs from the web front end
+# Return the id of the new record
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"album\":\"New Album\",\"artist\":\"A N Other\",\"price\":1200}" http://127.0.0.1:5000/project/cd
 @app.route('/project/cd', methods=['POST'])
 def createCd():
@@ -49,6 +69,8 @@ def createCd():
     cd['id']=newId
     return jsonify(cd) 
 
+# Create a new dvd record using the inputs from the web front end
+# Return the id of the new record
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"title\":\"New Film\",\"director\":\"A N Other\",\"price\":1200}" http://127.0.0.1:5000/project/dvd
 @app.route('/project/dvd', methods=['POST'])
 def createDvd():
@@ -65,6 +87,8 @@ def createDvd():
     dvd['id']=newId
     return jsonify(dvd) 
 
+# Update a cd record using values from the web front end. Make sure 'price' is an int.
+# Return the updated record values.
 # curl -i -H "Content-Type:application/json" -X PUT -d "{\"album\":\"Another New Album\",\"artist\":\"A N Other\",\"price\":1150}" http://127.0.0.1:5000/project/cd/1
 @app.route('/project/cd/<int:id>',methods=['PUT'])
 def updateCd(id):
@@ -88,6 +112,8 @@ def updateCd(id):
     projectDAO.updateCd(values)    
     return jsonify(foundCd)  
 
+# Update a dvd record using values from the web front end. Make sure 'price' is an int.
+# Return the updated record values.
 # curl -i -H "Content-Type:application/json" -X PUT -d "{\"title\":\"Another New Film\",\"director\":\"A N Other\",\"price\":1150}" http://127.0.0.1:5000/project/dvd/1
 @app.route('/project/dvd/<int:id>',methods=['PUT'])
 def updateDvd(id):
@@ -111,6 +137,7 @@ def updateDvd(id):
     projectDAO.updateDvd(values)    
     return jsonify(foundDvd)  
 
+# Delete a record from 'cds' using an input id
 #curl -X DELETE "http://127.0.0.1:5000/project/cd/1"
 @app.route('/project/cd/<int:id>',methods=['DELETE'])
 def deleteCd(id):
@@ -118,6 +145,7 @@ def deleteCd(id):
     projectDAO.deleteCd(id)  
     return jsonify({"done":True})         
 
+# Delete a record from 'dvds' using an input id
 #curl -X DELETE "http://127.0.0.1:5000/project/dvd/1"
 @app.route('/project/dvd/<int:id>',methods=['DELETE'])
 def deleteDvd(id):
@@ -125,5 +153,6 @@ def deleteDvd(id):
     projectDAO.deleteDvd(id)  
     return jsonify({"done":True})         
 
+# Start the app
 if __name__ == '__main__':
     app.run(debug=True)    
