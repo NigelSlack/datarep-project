@@ -14,6 +14,7 @@ is used to access and update the sql database.
                  load a few sample records into each table  
 4. dbconfig.py    - config file with the 'MySQL' params to connect to the database. Used by 'createdb' and 'projectDAO'  
 5. DRproject.html - the web interface that issues AJAX commands to 'server' to read/update the sql tables
+6. requirements.txt - text file containing environment context for running the code
 
 **To run**  
 'MySQL' will need to be installed first (if it is not already present). For instructions:  
